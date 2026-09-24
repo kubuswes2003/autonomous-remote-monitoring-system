@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import os
 import paho.mqtt.client as mqtt
 import json
 import time
@@ -7,7 +8,7 @@ import random
 from datetime import datetime
 
 # Konfiguracja MQTT
-MQTT_BROKER = "localhost"
+MQTT_BROKER = os.getenv("MQTT_BROKER", "localhost")
 MQTT_PORT = 1883
 MQTT_TOPIC = "weather/station/data"
 

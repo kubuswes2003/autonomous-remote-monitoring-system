@@ -3,11 +3,12 @@
 Prosty subscriber do testowania odbierania danych z MQTT
 """
 
+import os
 import paho.mqtt.client as mqtt
 import json
 from datetime import datetime
 
-MQTT_BROKER = "localhost"
+MQTT_BROKER = os.getenv("MQTT_BROKER", "localhost")
 MQTT_PORT = 1883
 MQTT_TOPIC = "weather/station/data"
 

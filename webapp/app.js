@@ -375,8 +375,8 @@ function updatePredictionsView(data) {
                 <span class="info-value">IMGW Poznań-Ławica 2025</span>
             </div>
             <div class="info-row">
-                <span class="info-label">Accuracy (MAE):</span>
-                <span class="info-value">Temp: 0.04°C | Press: 0.05hPa | Hum: 0.05%</span>
+                <span class="info-label">Evaluation:</span>
+                <span class="info-value">being reworked (target leakage in feature set)</span>
             </div>
         </div>
     `;

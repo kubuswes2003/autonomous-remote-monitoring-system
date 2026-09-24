@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import os
 import paho.mqtt.client as mqtt
 import json
 from datetime import datetime
@@ -6,13 +7,13 @@ from influxdb_client import InfluxDBClient, Point
 from influxdb_client.client.write_api import SYNCHRONOUS
 
 # Konfiguracja MQTT
-MQTT_BROKER = "localhost"
+MQTT_BROKER = os.getenv("MQTT_BROKER", "localhost")
 MQTT_PORT = 1883
 MQTT_TOPIC = "weather/station/data"
 
 # Konfiguracja InfluxDB
-INFLUX_URL = "http://localhost:8086"
-INFLUX_TOKEN = "my-super-secret-token"
+INFLUX_URL = os.getenv("INFLUX_URL", "http://localhost:8086")
+INFLUX_TOKEN = os.getenv("INFLUX_TOKEN", "")
 INFLUX_ORG = "weather"
 INFLUX_BUCKET = "weather_data"
 

@@ -4,16 +4,17 @@ LoRa Receiver - Prosty odbiornik i dekoder wszystkich pakietów LoRa
 Tylko odbiera, dekoduje i wyświetla - NIE zapisuje do bazy
 """
 
+import os
 import paho.mqtt.client as mqtt
 import json
 import base64
 from datetime import datetime
 
 # ========== KONFIGURACJA BROKERA LoRa ==========
-MQTT_BROKER = "10.58.40.99"
+MQTT_BROKER = os.getenv("MQTT_BROKER", "localhost")
 MQTT_PORT = 1883
-MQTT_USERNAME = "dabrowskiego536"
-MQTT_PASSWORD = "Dabrowskiego196105070320032004"
+MQTT_USERNAME = os.getenv("MQTT_USERNAME", "")
+MQTT_PASSWORD = os.getenv("MQTT_PASSWORD", "")
 MQTT_TOPIC = "application/bcb75d00-e41b-4f24-9891-2d26072205e2/device/ac1f09fffe19fc8a/event/up"
 
 # ========== DEKODERY PAKIETÓW ==========

@@ -5,6 +5,7 @@ Pobiera dane meteorologiczne z IMGW-PIB i wysyła do MQTT
 mqtt_to_influxdb.py następnie zapisze je do InfluxDB (tak jak dane z LoRa)
 """
 
+import os
 import paho.mqtt.client as mqtt
 import requests
 import json
@@ -23,7 +24,7 @@ STATION_LNG = 16.826
 IMGW_API_URL = "https://danepubliczne.imgw.pl/api/data/synop"
 
 # MQTT (lokalny broker - tak jak LoRa bridge)
-MQTT_BROKER = "localhost"
+MQTT_BROKER = os.getenv("MQTT_BROKER", "localhost")
 MQTT_PORT = 1883
 MQTT_TOPIC = "weather/station/data"  # Ten sam topic co LoRa!
 

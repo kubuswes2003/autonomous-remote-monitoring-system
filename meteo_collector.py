@@ -5,6 +5,7 @@ Pobiera dane meteorologiczne z oficjalnej stacji i zapisuje do InfluxDB
 Uruchamiany co godzinę przez systemd timer
 """
 
+import os
 from meteostat import Point, Hourly
 from datetime import datetime, timedelta
 from influxdb_client import InfluxDBClient, Point as InfluxPoint
@@ -19,8 +20,8 @@ STATION_ID = "station_ławica"
 STATION_NAME = "EPPO - Lotnisko Ławica"
 
 # InfluxDB
-INFLUX_URL = "http://localhost:8086"
-INFLUX_TOKEN = "my-super-secret-token"
+INFLUX_URL = os.getenv("INFLUX_URL", "http://localhost:8086")
+INFLUX_TOKEN = os.getenv("INFLUX_TOKEN", "")
 INFLUX_ORG = "weather"
 INFLUX_BUCKET = "weather_data"
 

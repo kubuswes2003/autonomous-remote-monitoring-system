@@ -1,0 +1,16 @@
+[Unit]
+Description=IMGW Collector Timer - Runs every hour and on boot
+Requires=imgw-collector.service
+
+[Timer]
+# Uruchom co godzinę na początku każdej godziny (00:00, 01:00, 02:00, etc.)
+OnCalendar=hourly
+
+# WAŻNE: Uruchom też 2 minuty po starcie systemu
+OnBootSec=2min
+
+# Jeśli przegapiono uruchomienie (np. system był wyłączony), uruchom przy następnej okazji
+Persistent=true
+
+[Install]
+WantedBy=timers.target

@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
+import os
 import paho.mqtt.client as mqtt
 import json
 import base64
 from datetime import datetime
 from collections import defaultdict
 
-MQTT_BROKER = "10.58.40.99"
+MQTT_BROKER = os.getenv("MQTT_BROKER", "localhost")
 MQTT_PORT = 1883
-MQTT_USERNAME = "dabrowskiego536"
-MQTT_PASSWORD = "Dabrowskiego196105070320032004"
+MQTT_USERNAME = os.getenv("MQTT_USERNAME", "")
+MQTT_PASSWORD = os.getenv("MQTT_PASSWORD", "")
 MQTT_TOPIC = "application/848a1f13-a778-479b-a212-1259aaab662b/device/ac1f09fffe1e035f/event/up"
 
 # Statystyki

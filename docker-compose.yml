@@ -25,10 +25,10 @@ services:
     environment:
       - DOCKER_INFLUXDB_INIT_MODE=setup
       - DOCKER_INFLUXDB_INIT_USERNAME=admin
-      - DOCKER_INFLUXDB_INIT_PASSWORD=adminpassword
+      - DOCKER_INFLUXDB_INIT_PASSWORD=${INFLUXDB_PASSWORD:?set INFLUXDB_PASSWORD in .env}
       - DOCKER_INFLUXDB_INIT_ORG=weather
       - DOCKER_INFLUXDB_INIT_BUCKET=weather_data
-      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=my-super-secret-token
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=${INFLUX_TOKEN:?set INFLUX_TOKEN in .env}
       - INFLUXD_HTTP_CORS_ENABLED=true    
       - INFLUXD_HTTP_CORS_ALLOWED_ORIGINS=* 
     restart: unless-stopped
@@ -43,7 +43,7 @@ services:
     volumes:
       - grafana-data:/var/lib/grafana
     environment:
-      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:?set GRAFANA_PASSWORD in .env}
       - GF_SECURITY_ADMIN_USER=admin
     restart: unless-stopped
     networks:
