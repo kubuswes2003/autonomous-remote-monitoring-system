@@ -33,25 +33,30 @@ Alongside the LoRa station, an hourly collector pulls official measurements from
 ## Architecture
 
 ```mermaid
-flowchart LR
-    ST["Weather station<br/>SHT45 · BMP390 · VEML7700<br/>wind · rain · 3S LiPo"]
-    GW["LoRaWAN gateway"]
-    CS["ChirpStack<br/>network server"]
-    BR["lora_receiver_bridge.py<br/><i>custom payload decoder</i>"]
-    MQ["Mosquitto<br/>MQTT + WebSocket"]
-    DB[("InfluxDB 2.7")]
-    ML["Gradient Boosting<br/>forecast service"]
-    WEB["Web dashboard<br/>Leaflet · Chart.js"]
-    IMGW["Poznań-Ławica<br/>reference station"]
+flowchart TD
+    subgraph field ["In the field"]
+        ST["Weather station<br/>SHT45 · BMP390 · VEML7700<br/>wind · rain · 3S LiPo"]
+        GW["LoRaWAN gateway"]
+    end
 
-    ST -- LoRaWAN --> GW --> CS
-    CS -- "MQTT (base64 JSON)" --> BR
-    BR -- "decoded JSON" --> MQ
-    MQ --> DB
-    IMGW -- "hourly collector<br/>(systemd timer)" --> DB
-    DB --> ML -- "predictions" --> MQ
-    MQ -- "MQTT over WebSocket" --> WEB
-    DB -- "Flux queries" --> WEB
+    subgraph server ["Self-hosted server"]
+        CS["ChirpStack network server"]
+        BR["lora_receiver_bridge.py<br/>custom payload decoder"]
+        MQ["Mosquitto<br/>MQTT + WebSocket"]
+        DB[("InfluxDB 2.7")]
+        ML["Gradient Boosting<br/>forecast service"]
+    end
+
+    IMGW["Poznań-Ławica<br/>reference station"]
+    WEB["Browser dashboard<br/>Leaflet · Chart.js"]
+
+    ST -->|"LoRaWAN — 4.3 km link"| GW --> CS
+    CS -->|"MQTT, base64 JSON"| BR
+    BR -->|"decoded JSON"| MQ --> DB
+    IMGW -->|"hourly collector (systemd timer)"| DB
+    DB --> ML -->|"predictions"| MQ
+    MQ -->|"MQTT over WebSocket"| WEB
+    DB -->|"Flux queries"| WEB
 ```
 
 ### Design decisions
